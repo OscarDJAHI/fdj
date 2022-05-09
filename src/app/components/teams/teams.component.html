@@ -1,0 +1,15 @@
+<div class="teams-wrapper" *ngIf="!teamLoading && teams">
+  <ul class="teams-list">
+    <li *ngFor="let team of teams">
+      <a href="javascript:" (click)="getPlayersByTeam(team.idTeam)">
+        <img [src]="team.strTeamBadge" [attr.alt]="team.strAlternate" />
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="no-league-data" *ngIf="teams === null">
+  No League Data
+</div>
+<div class="loading" *ngIf="teamLoading">
+  Team loading...
+</div>

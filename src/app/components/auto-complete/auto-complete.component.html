@@ -1,0 +1,28 @@
+<div class="toolbar">
+  <div class="team-page" *ngIf="displayForm">
+    <form [formGroup]="leagueForm">
+      <input type="search"
+           class="autocomplete-input"
+           formControlName="leagueName" (keyup)="filterLeague($event.target)"
+           placeholder="Search by league"/>
+      <button class="btn-cancel" *ngIf="displayCancelButton" (click)="initHeader()">Cancel</button>
+    </form>
+  </div>
+  <div class="player-page" *ngIf="backButton">
+    <div class="col-first">
+      <button class="btn-previous" (click)="goHome()">
+        <span class="icon"><i class="fa-solid fa-angle-left"></i></span>
+        <span class="label">Back</span>
+      </button>
+    </div>
+    <div class="col-two">
+      <span class="team-name" *ngIf="team?.strTeam">{{team.strTeam}}</span>
+    </div>
+    <div class="col-three">
+      &nbsp;
+    </div>
+  </div>
+</div>
+<ul class="autocomplete-result" clickOutside *ngIf="displayAutoComplete && autoCompleteReuslt.length">
+  <li *ngFor="let league of autoCompleteReuslt" (click)="selectLeague(league.strLeague)">{{league.strLeague}}</li>
+</ul>

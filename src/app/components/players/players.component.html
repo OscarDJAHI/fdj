@@ -1,0 +1,26 @@
+<div class="playres-wrapper" *ngIf="!playerLoading && players">
+  <div *ngFor="let player of players" class="player-metadata-row">
+    <div class="player-thumb">
+      <img [src]="player.strThumb" *ngIf="player.strThumb"/>
+      <img src="assets/blank-profile-picture-973460__340.webp"  *ngIf="!player.strThumb"/>
+    </div>
+    <div class="player-metadata">
+      <div class="player-name">{{player.strPlayer}}</div>
+      <div class="player-position">{{player.strPosition}}</div>
+      <div class="player-born">
+        <span>Birth date: </span>
+        <span>{{player.dateBorn}}</span>
+      </div>
+      <div class="player-signing">
+        <span>Price: </span>
+        <span>{{player.strSigning}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="no-player-data" *ngIf="players === null">
+  No Players Data
+</div>
+<div class="loading" *ngIf="playerLoading">
+  Player loading...
+</div>
