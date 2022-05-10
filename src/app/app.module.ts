@@ -1,5 +1,5 @@
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -9,6 +9,10 @@ import { AutoCompleteComponent } from './components/auto-complete/auto-complete.
 import { PlayersComponent } from './components/players/players.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { ClickOutsideDirective } from './directives/dropdown.directive';
+import { GlobalErrorHandler } from './global-error-handler';
+import { ServerErrorInterceptor } from './server-error.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -16,15 +20,21 @@ import { ClickOutsideDirective } from './directives/dropdown.directive';
     PlayersComponent,
     TeamsComponent,
     AutoCompleteComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
-  providers: [],
+  providers: [
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

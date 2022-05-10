@@ -51,6 +51,9 @@ export class AutoCompleteComponent implements OnInit {
 
   filterLeague(target: any) {
     if (target.value.length > 2) {
+      if (!this.leaguesLoaded.length) {
+        this.loadLeagues();
+      }
       this.displayAutoComplete = true;
       const filterValue = target.value.toLowerCase();
       this.autoCompleteReuslt = this.leaguesLoaded;
@@ -98,7 +101,7 @@ export class AutoCompleteComponent implements OnInit {
     );
   }
 
-  closeAutocomplete(){
+  closeAutocomplete() {
     this.sharedDataService.clickOutside.subscribe(
       (data: boolean) => {
         this.displayAutoComplete = !data;
