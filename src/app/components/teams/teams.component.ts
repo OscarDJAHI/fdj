@@ -46,12 +46,16 @@ export class TeamsComponent implements OnInit {
     this.sharedData.playerLoadingEmitter.emit(true);
     this.sharedData.teamListEmitter.next([]);
 
-    this.teamService.getTeamById(teamId).subscribe(
-      (data: any) => {
+    this.teamService.getTeamById(teamId).subscribe({
+      next: (data: any) => {
         this.team = data.teams[0];
         this.sharedData.teamEmitter.next(this.team);
-      }
-    );
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => console.info('complete')
+    });
 
     this.player.getPlayersByTeamId(teamId).subscribe(
       (data: Players) => {

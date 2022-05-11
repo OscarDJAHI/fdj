@@ -42,11 +42,15 @@ export class AutoCompleteComponent implements OnInit {
   }
 
   loadLeagues() {
-    this.leagueService.getLeagues().subscribe(
-      (data: Leagues) => {
+    this.leagueService.getLeagues().subscribe({
+      next: (data: Leagues) => {
         this.leaguesLoaded = data.leagues;
-      }
-    )
+      },
+      // error: (err) => {
+      //   console.log(err);
+      // },
+      // complete: () => console.info('complete')
+    })
   }
 
   filterLeague(target: any) {
@@ -68,12 +72,16 @@ export class AutoCompleteComponent implements OnInit {
     this.sharedDataService.teamLoadingEmitter.next(true);
     this.displayCancelButton = true;
 
-    this.teamService.getTeamsByLeague(league).subscribe(
-      (data: Teams) => {
+    this.teamService.getTeamsByLeague(league).subscribe({
+      next: (data: Teams) => {
         this.sharedDataService.teamLoadingEmitter.next(false);
         this.sharedDataService.teamListEmitter.next(data.teams);
-      }
-    );
+      },
+      // error: (err) => {
+      //   console.log(err);
+      // },
+      // complete: () => console.info('complete')
+    });
   }
 
   displayButton() {

@@ -19,4 +19,3 @@ export const GET_TEAMS_BY_LEAGUE = `https://www.thesportsdb.com/api/v1/json/${AP
   PLAYERS APIs
 */
 export const GET_PLAYERS_BY_TEAM_ID = `https://www.thesportsdb.com/api/v1/json/${API_KEY}/lookup_all_players.php?id=`;
-133604
